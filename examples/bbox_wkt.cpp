@@ -80,15 +80,16 @@ int main(int argc, char* argv[]) {
     }
 
     // Assemble a WKT LineString geometry.
-    cout << "\tLINESTRING (";
-    cout << std::fixed << std::setprecision(7); // the output should have 7 decimal places.
     auto nodes = way.getNodes();
     for (int i = 0; i < nodes.size(); i++) {
       auto location = locations.get(nodes[i]);
-      if (i > 0) cout << ",";
-      cout << location.coords.lon() << " " << location.coords.lat();
+        if (!location.coords.valid()) {
+            continue;
+        }
+        else {
+            location.coords.lat(), location.coords.lon();
+        }
     }
-    cout << ")" << endl;
   }
 
   mdb_env_close(env); // close the database.
